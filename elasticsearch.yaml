@@ -1,0 +1,42 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: elasticsearch
+spec:
+  selector:
+    app: bee-bee-alert
+    tier: elasticsearch
+  ports:
+  - protocol: TCP
+    port: 9200
+    targetPort: 9200
+  - protocol: TCP
+    port: 9300
+    targetPort: 9300
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: elasticsearch
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: bee-bee-alert
+        tier: elasticsearch
+    spec:
+      containers:
+      - name: elasticsearch
+        image: "gcr.io/bee-bee-alert-jimlin/elasticsearch:6.0.0"
+        ports:
+        - containerPort: 9200
+        - containerPort: 9300
+        volumeMounts:
+        - mountPath: /usr/share/elasticsearch/data
+          name: esdata
+      volumes:
+      - name: esdata
+        gcePersistentDisk:
+          pdName: es-disk
+          fsType: ext4

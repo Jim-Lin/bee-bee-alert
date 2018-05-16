@@ -1,0 +1,31 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: redis
+spec:
+  selector:
+    app: bee-bee-alert
+    tier: redis
+  ports:
+  - protocol: TCP
+    port: 6379
+    targetPort: 9200
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: bee-bee-alert
+        tier: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:alpine
+        ports:
+        - containerPort: 6379
