@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Jim-Lin/bee-bee-alert/api/model"
-	"github.com/Jim-Lin/bee-bee-alert/api/db"
+	"github.com/Jim-Lin/bee-bee-alert/backend/model"
+	"github.com/Jim-Lin/bee-bee-alert/backend/db"
 )
 
 func comparisonHandler(w http.ResponseWriter, r *http.Request) {

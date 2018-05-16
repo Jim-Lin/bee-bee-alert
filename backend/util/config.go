@@ -18,14 +18,24 @@ type Config struct {
 var cfg Config
 
 // singleton pattern
-func GetConfig() Config {
-  if cfg == (Config{}) {
-    abspath, _ := filepath.Abs("./")
-    p := properties.MustLoadFile(abspath + "/api.properties", properties.UTF8)
+// func GetConfig() Config {
+//   if cfg == (Config{}) {
+//     abspath, _ := filepath.Abs("./")
+//     p := properties.MustLoadFile(abspath + "/backend.properties", properties.UTF8)
+//
+//     err := p.Decode(&cfg)
+//     CheckError(err)
+//   }
+//
+//   return cfg
+// }
 
-    err := p.Decode(&cfg)
-    CheckError(err)
-  }
+func GetConfig() Config {
+  abspath, _ := filepath.Abs("./")
+  p := properties.MustLoadFile(abspath + "/backend.properties", properties.UTF8)
+
+  err := p.Decode(&cfg)
+  CheckError(err)
 
   return cfg
 }

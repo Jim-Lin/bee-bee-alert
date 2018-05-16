@@ -7,7 +7,7 @@ RUN apk --update add git openssh && \
 
 RUN curl https://glide.sh/get | sh
 
-ENV PKG_NAME=github.com/Jim-Lin/bee-bee-alert/api
+ENV PKG_NAME=github.com/Jim-Lin/bee-bee-alert/backend
 ENV PKG_PATH=$GOPATH/src/$PKG_NAME
 WORKDIR $PKG_PATH
 

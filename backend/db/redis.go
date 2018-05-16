@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Jim-Lin/bee-bee-alert/api/model"
-	"github.com/Jim-Lin/bee-bee-alert/api/util"
+	"github.com/Jim-Lin/bee-bee-alert/backend/model"
+	"github.com/Jim-Lin/bee-bee-alert/backend/util"
 )
 
 var redisClient *redis.Client
