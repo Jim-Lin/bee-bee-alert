@@ -1,0 +1,40 @@
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "jieba_stop": {
+          "type": "stop",
+          "stopwords_path": "stopwords/stopwords.txt"
+        }
+      },
+      "analyzer": {
+        "jieba": {
+          "tokenizer": "jieba_index",
+          "filter": [
+            "lowercase",
+            "word_delimiter",
+            "unique",
+            "jieba_stop"
+          ]
+        }
+      }
+    }
+  },
+
+  "mappings": {
+    "prod": {
+      "properties": {
+        "name": {
+          "type":  "text",
+          "analyzer": "jieba"
+        },
+        "price": {
+          "type":  "integer"
+        },
+        "url": {
+          "type":  "text"
+        }
+      }
+    }
+  }
+}
