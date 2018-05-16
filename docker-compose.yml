@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  elasticsearch:
+    container_name: bee-elasticsearch
+    build:
+      context: ./elasticsearch
+    image: bee-elasticsearch:6.0.0
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+
+  redis:
+    container_name: bee-redis
+    image: redis:alpine
+    volumes:
+      - redisdata:/data
+    expose:
+      - "6379"
+    # ports:
+    #   - "6379:6379"
+    entrypoint: redis-server --appendonly yes
+    depends_on:
+      - elasticsearch
+
+  api:
+    container_name: bee-api
+    build:
+      context: ./api
+    image: bee-api:0.0.4
+    expose:
+      - "9090"
+    depends_on:
+      - redis
+
+  nginx:
+    container_name: bee-nginx
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - api
+
+volumes:
+  esdata:
+  redisdata:
