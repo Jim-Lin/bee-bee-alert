@@ -9,7 +9,7 @@ spec:
   ports:
   - protocol: TCP
     port: 6379
-    targetPort: 9200
+    targetPort: 6379
 
 ---
 apiVersion: extensions/v1beta1
@@ -17,7 +17,7 @@ kind: Deployment
 metadata:
   name: redis
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
