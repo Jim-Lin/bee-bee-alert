@@ -30,9 +30,6 @@ spec:
       containers:
       - name: elasticsearch
         image: "gcr.io/bee-bee-alert-jimlin/elasticsearch:6.0.0"
-        env:
-        - name: ES_JAVA_OPTS
-          value: -Xms256m -Xmx256m
         ports:
         - containerPort: 9200
           name: http
@@ -45,19 +42,4 @@ spec:
           name: esdata
       volumes:
       - name: esdata
-        gcePersistentDisk:
-          pdName: es-disk
-
----
-apiVersion: "v1"
-kind: "PersistentVolume"
-metadata:
-  name: "pv"
-spec:
-  capacity:
-    storage: "1Gi"
-  accessModes:
-    - "ReadWriteOnce"
-  gcePersistentDisk:
-    fsType: "ext4"
-    pdName: "es-disk"
+        emptyDir: {}
