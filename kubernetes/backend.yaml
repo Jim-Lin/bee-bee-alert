@@ -1,11 +1,11 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: api
+  name: backend
 spec:
   selector:
     app: bee-bee-alert
-    tier: api
+    tier: backend
   ports:
   - protocol: TCP
     port: 9090
@@ -15,25 +15,25 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: api
+  name: backend
 spec:
   replicas: 2
   template:
     metadata:
       labels:
         app: bee-bee-alert
-        tier: api
+        tier: backend
     spec:
       containers:
-      - name: api
-        image: "gcr.io/bee-bee-alert-jimlin/api:0.0.5"
+      - name: backend
+        image: "gcr.io/bee-bee-alert-jimlin/backend:0.0.6"
         ports:
         - containerPort: 9090
         volumeMounts:
         - name: config-volume
-          mountPath: /go/src/github.com/Jim-Lin/bee-bee-alert/api
+          mountPath: /go/src/github.com/Jim-Lin/bee-bee-alert/backend
 
       volumes:
       - name: config-volume
         configMap:
-          name: api-config
+          name: backend-config
