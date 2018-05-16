@@ -7,3 +7,5 @@ FROM docker.elastic.co/elasticsearch/elasticsearch-oss:6.0.0
 COPY ./config/elasticsearch.yml /usr/share/elasticsearch/config/
 COPY ./config/stopwords /usr/share/elasticsearch/config/stopwords
 COPY ./plugins /usr/share/elasticsearch/plugins
+
+COPY ./fake /usr/share/elasticsearch/fake
