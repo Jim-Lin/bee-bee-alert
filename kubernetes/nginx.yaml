@@ -11,6 +11,7 @@ spec:
     port: 80
     targetPort: 80
   type: LoadBalancer
+
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -31,7 +32,8 @@ spec:
         - containerPort: 80
         volumeMounts:
         - name: config-volume
-          mountPath: /etc/nginx/conf.d
+          subPath: default.conf
+          mountPath: /etc/nginx/conf.d/default.conf
 
       volumes:
       - name: config-volume
