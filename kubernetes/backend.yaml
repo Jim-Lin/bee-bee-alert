@@ -26,12 +26,13 @@ spec:
     spec:
       containers:
       - name: backend
-        image: "gcr.io/bee-bee-alert-jimlin/backend:0.0.6"
+        image: "gcr.io/bee-bee-alert-jimlin/backend:0.0.7"
         ports:
         - containerPort: 9090
         volumeMounts:
         - name: config-volume
-          mountPath: /go/src/github.com/Jim-Lin/bee-bee-alert/backend
+          subPath: backend.properties
+          mountPath: /go/src/github.com/Jim-Lin/bee-bee-alert/backend/backend.properties
 
       volumes:
       - name: config-volume
