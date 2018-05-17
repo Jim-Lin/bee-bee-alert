@@ -1,10 +1,11 @@
 package db
 
 import (
-	"github.com/go-redis/redis"
 	"log"
 	"strconv"
 	"time"
+
+	"github.com/go-redis/redis"
 
 	"github.com/Jim-Lin/bee-bee-alert/backend/model"
 	"github.com/Jim-Lin/bee-bee-alert/backend/util"
@@ -20,7 +21,7 @@ func IncrCounter(prod model.Prod) {
 	// https://stackoverflow.com/a/49251938/4436392
 	if result == 30 {
 		pipe := getClient().Pipeline()
-		pipe.Expire(key, 30 * time.Second)
+		pipe.Expire(key, 30*time.Second)
 		_, err := pipe.Exec()
 		util.CheckError(err)
 	}
@@ -32,15 +33,13 @@ func IncrCounter(prod model.Prod) {
 
 		go (&util.MailTemplate{
 			Subject: "[Notice] Hot product!",
-			Msg: prod.Name + "\r\n$" + strconv.Itoa(prod.Price) + "\r\n" + prod.Url + "\r\n",
-		}).
-		GetMail().
-		Notify()
+			Msg:     prod.Name + "\r\n$" + strconv.Itoa(prod.Price) + "\r\n" + prod.Url + "\r\n",
+		}).GetMail().Notify()
 	}
 }
 
 func getClient() *redis.Client {
-  if client == nil {
+	if client == nil {
 		client = redis.NewClient(&redis.Options{
 			Addr:         util.GetConfig().RedisUrl,
 			DialTimeout:  10 * time.Second,
@@ -50,7 +49,7 @@ func getClient() *redis.Client {
 			PoolTimeout:  30 * time.Second,
 		})
 		client.FlushDB()
-  }
+	}
 
-  return client
+	return client
 }

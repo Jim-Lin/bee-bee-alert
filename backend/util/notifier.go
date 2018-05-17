@@ -15,24 +15,24 @@ type MailTemplate struct {
 }
 
 func (mt *MailTemplate) GetMail() *Mail {
-  mail := GetConfig().MarketingMail
+	mail := GetConfig().MarketingMail
 
-  return &Mail{
-    To: []string{mail},
-    Msg: []byte("To: " + mail + "\r\n" +
-      "Subject: "+ mt.Subject + "\r\n" +
-      "\r\n" +
-      mt.Msg),
-  }
+	return &Mail{
+		To: []string{mail},
+		Msg: []byte("To: " + mail + "\r\n" +
+			"Subject: " + mt.Subject + "\r\n" +
+			"\r\n" +
+			mt.Msg),
+	}
 }
 
 func (m *Mail) Notify() {
-  var (
-  	hostname = GetConfig().SmtpHostname
-    addr     = GetConfig().SmtpAddr
-  	from     = GetConfig().SmtpFrom
-  	password = GetConfig().SmtpPassword
-  )
+	var (
+		hostname = GetConfig().SmtpHostname
+		addr     = GetConfig().SmtpAddr
+		from     = GetConfig().SmtpFrom
+		password = GetConfig().SmtpPassword
+	)
 
 	auth := smtp.PlainAuth("", from, password, hostname)
 	err := smtp.SendMail(addr, auth, from, m.To, m.Msg)

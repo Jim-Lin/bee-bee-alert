@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"io"
 
-  "github.com/Jim-Lin/bee-bee-alert/backend/util"
+	"github.com/Jim-Lin/bee-bee-alert/backend/util"
 )
 
 type Prod struct {

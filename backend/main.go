@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Jim-Lin/bee-bee-alert/backend/model"
 	"github.com/Jim-Lin/bee-bee-alert/backend/db"
+	"github.com/Jim-Lin/bee-bee-alert/backend/model"
 )
 
 func comparisonHandler(w http.ResponseWriter, r *http.Request) {
@@ -13,19 +13,19 @@ func comparisonHandler(w http.ResponseWriter, r *http.Request) {
 		if err := recover(); err != nil { //catch
 			log.Println(err)
 			w.WriteHeader(http.StatusInternalServerError)
-	    return
+			return
 		}
 	}()
 
 	if r.Method != "POST" {
 		http.Error(w, "Allowed POST method only", http.StatusMethodNotAllowed)
-    return
-  }
+		return
+	}
 
 	if r.Header.Get("Content-Type") != "application/json" {
 		http.Error(w, "Allowed application/json Content-Type only", http.StatusBadRequest)
-    return
-  }
+		return
+	}
 
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
