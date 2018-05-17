@@ -90,9 +90,6 @@ $ kubectl create configmap backend-config --from-file=./backend/backend.properti
 ## Continuous Deployment with Google Container Registry (GCR)
 ![cd](cd.png?raw=true)
 
-### add trigger  
-![trigger](trigger.png?raw=true)
-
 ### Cloud Container Builder
 enable the Container Builder API  
 https://console.cloud.google.com/flows/enableapi?apiid=cloudbuild.googleapis.com
@@ -107,7 +104,10 @@ $ gcloud projects add-iam-policy-binding $PROJECT \
     --role=roles/container.developer
 ```
 
-when push tag to github, it will auto run by builder with cloudbuild.yaml  
+### add trigger
+![trigger](trigger.png?raw=true)
+
+when push tag to GitHub, it will auto run by builder with **cloudbuild.yaml**  
 ![builder](builder.png?raw=true)
 
 ### init fake data
