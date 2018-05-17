@@ -31,7 +31,7 @@ services:
     container_name: bee-backend
     build:
       context: ./backend
-    image: bee-backend:0.0.4
+    image: bee-backend:0.0.1
     expose:
       - "9090"
     depends_on:
